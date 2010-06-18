@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>query log</comment>
+<entry key="query3">SELECT PROVENANCE r.i FROM r LEFT JOIN s ON (r.i = s.i);</entry>
+<entry key="query2">SELECT PROVENANCE * FROM r LEFT JOIN s ON (r.i = s.i);</entry>
+<entry key="query1">SELECT PROVENANCE * FROM r;</entry>
+<entry key="query0">SELECT * FROM r;</entry>
+<entry key="query7">SELECT *&#13;FROM&#13;	(SELECT PROVENANCE sum(r.i) FROM r) AS p&#13;WHERE &#13;	prov_public_r_i = 3;</entry>
+<entry key="query6">SELECT PROVENANCE *&#13;FROM r&#13;WHERE&#13;	r.i IN (SELECT * FROM s);</entry>
+<entry key="query5">SELECT PROVENANCE *&#13;FROM&#13;(SELECT * FROM r&#13;INTERSECT&#13;SELECT * FROM s) AS sub;</entry>
+<entry key="query4">SELECT PROVENANCE count(*) AS num, country&#13;FROM customers&#13;GROUP BY country;</entry>
+</properties>

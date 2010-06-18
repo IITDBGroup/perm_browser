@@ -1,0 +1,1 @@
+java -Djava.library.path=lib -jar permbrowser-win.jar

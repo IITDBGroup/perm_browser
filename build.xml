@@ -1,0 +1,112 @@
+<project name="Build PermBrowser" default="createMacBundle" basedir=".">
+	
+	<property name="sourcedir" value="${basedir}/src" />
+	<property name="binarydir" value="${basedir}/bin" />
+	<property name="librarydir" value="${basedir}/lib" />
+	<property name="builddir" value="${basedir}/build" />
+	<property name="resourcedir" value="${basedir}/resource/" />
+	<property name="bundledir" value="${basedir}/build/PermBrowser.app/Contents/MacOS/" />
+	
+	<path id="libraries">
+		<fileset dir="${librarydir}" />
+	</path>
+	
+	<target name="clean">
+		<delete includeemptydirs="true">
+			<fileset dir="${binarydir}" includes="**/*"/>
+		 </delete>
+		<mkdir dir="${binarydir}" />		
+		<mkdir dir="${builddir}" />
+	</target>
+	
+	<target name="compile" depends="clean, copy-resources">
+		<javac srcdir="${sourcedir}" destdir="${binarydir}" classpathref="libraries" debug="on">
+			<compilerarg value="-Xlint:unchecked" />
+		</javac>
+	</target>
+	
+	<target name="copy-resources">
+		<copy todir="${builddir}/BrowserWin/resource">
+			<fileset dir="${resourcedir}">
+				<exclude name=".svn"/>
+			</fileset>
+		</copy>
+		<copy todir="${builddir}/BrowserWin/lib">
+			<fileset dir="${librarydir}">
+				<exclude name=".svn"/>
+				<exclude name="*.jnilib"/>
+				<exclude name="swt-mac.jar"/>
+				<exclude name="swt-win.jar"/>
+			</fileset>
+		</copy>
+	</target>	
+	
+	<target name="jar" depends="clean, compile">
+		<jar destfile="${builddir}/BrowserWin/permbrowser-win.jar" basedir="${binarydir}">
+			<manifest>
+				<attribute name="Main-Class" value="org.perm.browser.gui.MainGui" />
+				<attribute name="Created-By" value="University of Zurich, Department for Computer Science, Boris Glavic" />
+				<attribute name="Class-Path" value="
+					lib/swt-win.jar
+					lib/swt-awt-win32-3236.dll
+					lib/swt-gdipwin32-3236.dll
+					lib/swt-wgl-win32-3236.dll
+					lib/swt-win32-3236.dll
+					lib/SesamUtil-mac.jar
+					lib/log4j-1.2.11.jar
+					lib/postgresql-8.0-317.jdbc3.jar
+					lib/org.eclipse.jface_3.2.1.M20060908-1000.jar
+					lib/org.eclipse.core.commands_3.2.0.I20060605-1400.jar
+					lib/org.eclipse.core.runtime_3.2.0.v20060603.jar
+					lib/org.eclipse.core.runtime.compatibility_3.1.100.v20060603.jar
+					lib/org.eclipse.equinox.common_3.2.0.v20060603.jar
+					lib/org.eclipse.osgi_3.2.1.R32x_v20060919.jar
+					lib/
+					resource/
+					" />
+			</manifest>
+		</jar>
+		<jar destfile="${bundledir}/permbrowser-mac.jar" basedir="${binarydir}">
+			<manifest>
+				<attribute name="Main-Class" value="org.perm.browser.gui.MainGui" />
+				<attribute name="Created-By" value="University of Zurich, Department for Computer Science, Boris Glavic" />
+				<attribute name="Class-Path" value="
+					lib/swt-mac.jar
+					lib/libswt-agl-carbon-3236.jnilib
+					lib/libswt-carbon-3236.jnilib
+					lib/libswt-pi-carbon-3236.jnilib
+					lib/libswt-webkit-carbon-3236.jnilib
+					lib/SesamUtil-mac.jar
+					lib/log4j-1.2.11.jar
+					lib/postgresql-8.0-317.jdbc3.jar
+					lib/org.eclipse.jface_3.2.1.M20060908-1000.jar
+					lib/org.eclipse.core.commands_3.2.0.I20060605-1400.jar
+					lib/org.eclipse.core.runtime_3.2.0.v20060603.jar
+					lib/org.eclipse.core.runtime.compatibility_3.1.100.v20060603.jar
+					lib/org.eclipse.equinox.common_3.2.0.v20060603.jar
+					lib/org.eclipse.osgi_3.2.1.R32x_v20060919.jar
+					lib/
+					resource/
+				" />
+			</manifest>
+		</jar>
+	</target>	
+	
+
+	<target name="createMacBundle" depends="jar">
+		<copy todir="${bundledir}/lib">
+			<fileset dir="${librarydir}">
+				<exclude name=".svn"/>
+				<exclude name="*.dll"/>
+				<exclude name="swt-win.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="${bundledir}/resource">
+			<fileset dir="${resourcedir}">
+				<exclude name=".svn"/>
+			</fileset>
+		</copy>
+	</target>	
+
+	
+</project>	

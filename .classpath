@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="PermBrowser/lib/swtmaccocoa"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/log4j-1.2.11.jar"/>
+	<classpathentry kind="lib" path="lib/SesamUtil-mac.jar" sourcepath="/SesamUtil/src"/>
+	<classpathentry kind="lib" path="resource"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.jface_3.2.1.M20060908-1000.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.core.commands_3.2.0.I20060605-1400.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.core.runtime_3.2.0.v20060603.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.core.runtime.compatibility_3.1.100.v20060603.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.equinox.common_3.2.0.v20060603.jar"/>
+	<classpathentry kind="lib" path="lib/org.eclipse.osgi_3.2.1.R32x_v20060919.jar"/>
+	<classpathentry kind="lib" path="lib/postgresql-8.0-317.jdbc3.jar"/>
+	<classpathentry kind="lib" path="lib/swtmaccocoa/org.eclipse.swt_3.5.2.v3557f.jar"/>
+	<classpathentry kind="lib" path="lib/swtmaccocoa/org.eclipse.swt.cocoa.macosx.x86_64_3.5.2.v3557f.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

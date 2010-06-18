@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment></comment>
+<entry key="MainGui.Menu.File">File</entry>
+<entry key="MainGui.Menu.Save">save</entry>
+<entry key="MainGui.Menu.Close">close</entry>
+<entry key="MainGui.Menu.Configure">Options</entry>
+<entry key="MainGui.WindowTitle">Datacollection Process Interface</entry>
+
+<!-- dialog strings -->
+<entry key="ChooseExperimentDialog.StartButton">start experiment</entry>
+<entry key="ChooseExperimentDialog.WindowTitle">Choose a Type of Experiment</entry>
+<entry key="ChooseExperimentDialog.MeasurementPoint">Measurement Point</entry>
+<entry key="ChooseExperimentDialog.Experiment">Experiment</entry>
+<entry key="ChooseExperimentDialog.Description">Description</entry>
+
+<entry key="LoginDialog.WindowTitle">Please identify yourself</entry>
+<entry key="LoginDialog.Ok">Ok</entry>
+<entry key="LoginDialog.Exit">Exit</entry>
+<entry key="LoginDialog.Employee">Employee</entry>
+<entry key="LoginDialog.LeavingDate">Leaving date</entry>
+<entry key="LoginDialog.Jobs">Can perform</entry>
+<entry key="LoginDialog.Study">in study</entry>
+<entry key="LoginDialog.Options">Options</entry>
+<entry key="LoginDialog.ModifyPerson">Edit Subjects</entry>
+<entry key="LoginDialog.ExportLog">Export Logfile</entry>
+
+<entry key="CalendarDialog.Ok">Ok</entry>
+
+<entry key="SubjectDialog.WindowTitle">Change Study subjects</entry>
+<entry key="SubjectDialog.NewButton">new</entry>
+<entry key="SubjectDialog.SaveButton">save</entry>
+<entry key="SubjectDialog.LoadButton">load</entry>
+<entry key="SubjectDialog.AddButton">add</entry>
+<entry key="SubjectDialog.RemoveButton">remove</entry>
+<entry key="SubjectDialog.SsnLabel">SSN:</entry>
+<entry key="SubjectDialog.FirstNameLabel">First name:</entry>
+<entry key="SubjectDialog.LastNameLabel">Last name:</entry>
+<entry key="SubjectDialog.GenderLabel">Gender:</entry>
+<entry key="SubjectDialog.UnbornLabel">Unborn:</entry>
+<entry key="SubjectDialog.RelationshipLabel">Relationships:</entry>
+<entry key="SubjectDialog.RoleTableColumn">Role</entry>
+<entry key="SubjectDialog.SubjectTableColumn">Of subject</entry>
+<entry key="SubjectDialog.GenderCombo">Male,Female,Undefined</entry>
+<entry key="SubjectDialog.UnbornCombo">False,True</entry>
+<entry key="SubjectDialog.BirthdateLabel">Birth Date</entry>
+<entry key="SubjectDialog.ExBirthdateLabel">Expected Birth Date</entry>
+<entry key="SubjectDialog.SelectDateButton">Select Date</entry>
+
+
+<entry key="LoadSubjectDialog.WindowTitle">Please choose a subject</entry>
+
+<entry key="LoadInterviewAnswerDialog.WindowTitle">Load an unfinished interview of type: </entry>
+<entry key="LoadInterviewAnswerDialog.TableHeader">Unfinished Interviews</entry>
+<entry key="LoadInterviewAnswerDialog.Button.Ok">Ok</entry>
+<entry key="LoadInterviewAnswerDialog.Button.Cancel">Cancel</entry>
+<entry key="LoadInterviewAnswerDialog.ErrorHeader">An error occured loading an unfinished interview</entry>
+
+
+<!-- Composite strings -->
+<entry key="ValidationInfoComposite.ErrorForElement">This error occured for model element</entry>
+<entry key="ValidationInfoComposite.ErrorSeverity">Error's Severity</entry>
+<entry key="ValidationInfoComposite.ErrorDescription">Description</entry>
+<entry key="ValidationInfoComposite.ErrorException">Caused by Exception</entry>
+<entry key="ValidationInfoComposite.Experiment.Name">Experiment name</entry>
+<entry key="ValidationInfoComposite.Experiment.Abbreviation">Abbreviation</entry>
+<entry key="ValidationInfoComposite.Experiment.MP.Name">Measurement point</entry>
+<entry key="ValidationInfoComposite.Experiment.MP.Lifedate">Lifedate</entry>
+<entry key="ValidationInfoComposite.Experiment.MP.Interval">Interval</entry>
+<entry key="ValidationInfoComposite.Experiment.MP.LifedateSubject">Subject-role for Lifedate subject</entry>
+<entry key="ValidationInfoComposite.Experiment.MP.MeasurementSubject">Subject-role for Measurement subject</entry>
+<entry key="ValidationInfoComposite.Experiment.Anchor">Subject-role for Anchor subject</entry>
+<entry key="ValidationInfoComposite.Experiment.Description">Description</entry>
+<entry key="ValidationInfoComposite.Process.Name">Name</entry>
+<entry key="ValidationInfoComposite.Process.Abbreviation">Abbreviation</entry>
+<entry key="ValidationInfoComposite.Process.Description">Description</entry>
+<entry key="ValidationInfoComposite.Employee.Name">Name</entry>
+<entry key="ValidationInfoComposite.Employee.Id">Id</entry>
+<entry key="ValidationInfoComposite.Employee.Job">Can perform</entry>
+<entry key="ValidationInfoComposite.Subject.Name">Name</entry>
+<entry key="ValidationInfoComposite.Subject.SSN">SSN</entry>
+<entry key="ValidationInfoComposite.Subject.Roles">Roles</entry>
+<entry key="ValidationInfoComposite.Application.Name">Name</entry>
+<entry key="ValidationInfoComposite.Application.Version">Version</entry>
+<entry key="ValidationInfoComposite.Application.Parameter">Parameter</entry>
+<entry key="ValidationInfoComposite.Equipment.Name">Type of equipment</entry>
+<entry key="ValidationInfoComposite.Equipment.ClassDescription">Description of equipment type</entry>
+<entry key="ValidationInfoComposite.Equipment.Id">Equipment Id</entry>
+<entry key="ValidationInfoComposite.Equipment.Description">Equipment description</entry>
+<entry key="ValidationInfoComposite.ExtraField.Name">Process specific information name</entry>
+<entry key="ValidationInfoComposite.ExtraField.Value">Process specific information value</entry>
+<entry key="ValidationInfoComposite.DataItem.Name">DataItem type name</entry>
+<entry key="ValidationInfoComposite.DataItem.ClassId">DataItem type Id</entry>
+<entry key="ValidationInfoComposite.DataItem.Description">DataItem type Description</entry>
+
+<entry key="StudySubjectComposite.SSNlabel">SSN:</entry>
+<entry key="StudySubjectComposite.RoleLabel">Subject Role:</entry>
+<entry key="StudySubjectComposite.BirthLabel">Birth date:</entry>
+<entry key="StudySubjectComposite.ExBirthLabel">Expected Birth date:</entry>
+<entry key="StudySubjectComposite.SearchButton">search subject</entry>
+<entry key="StudySubjectsComposite.Anchor">Anchor</entry>
+<entry key="StudySubjectsComposite.Measurement">Measurement Subject</entry>
+<entry key="StudySubjectsComposite.Lifedate">Lifedate Subject</entry>
+<entry key="StudySubjectsComposite.Subject">Subject</entry>
+
+<entry key="DataItemInfoComposite.ClassLabel">Data Item Class: </entry>
+<entry key="DataItemInfoComposite.InputLabel">ProcessClass Input: </entry>
+<entry key="DataItemInfoComposite.OutputLabel">ProcessClass Output: </entry>
+<entry key="DataItemInfoComposite.ProcessInputDescription">ProcessClass Input Description:</entry>
+<entry key="DataItemInfoComposite.ProcessOutputDescription">ProcessClass Output Description:</entry>
+<entry key="DataItemInfoComposite.GroupHeader">DataItemClass and Process Input/Output information</entry>
+
+<entry key="DataItemComposite.Interview.FileLabel">File:</entry>
+<entry key="DataItemComposite.Interview.BrowseButton">Browse</entry>
+<entry key="DataItemComposite.Interview.RunButton">Run Interview</entry>
+<entry key="DataItemComposite.Interview.ResumeButton">Resume unfinished Interview</entry>
+<entry key="DataItemComposite.Interview.LabelGroupHeader">Interview answer file</entry>
+
+<entry key="DataItemComposite.Sample.ACGroupHeader">Sample information</entry>
+<entry key="DataItemComposite.Sample.ACLabel">AC:</entry>
+<entry key="DataItemComposite.Sample.VolumeLabel">Extracted Volume:</entry>
+<entry key="DataItemComposite.Sample.CommentLabel">Comment:</entry>
+
+<entry key="DataItemComposite.Questionnaire.ACGroupHeader">Questionnaire Archive-Code (AC)</entry>
+<entry key="DataItemComposite.Questionnaire.ACLabel">AC:</entry>
+
+
+<entry key="EmployeeComposite.TableColumn.EmployeeName">Name</entry>
+<entry key="EmployeeComposite.TableColumn.EmployeeId">Id</entry>
+<entry key="EmployeeComposite.TableColumn.Jobrole">Jobrole</entry>
+<entry key="EmployeeComposite.TableColumn.TaskDescription">Task Description</entry>
+<entry key="EmployeeComposite.AddButton">add</entry>
+<entry key="EmployeeComposite.DeleteButton">delete</entry>
+
+<entry key="ProcessComposite.GeneralTab">Overview</entry>
+<entry key="ProcessComposite.ApplicationsTab">Applications</entry>
+<entry key="ProcessComposite.EquipmentTab">Equipment</entry>
+<entry key="ProcessComposite.EmployeeTab">Employees</entry>
+<entry key="ProcessComposite.OutputDataItemTab">Output:</entry>
+<entry key="ProcessComposite.InputDataItemTab">Input:</entry>
+<entry key="ProcessComposite.ExtraFieldsTab">Specific Process Information</entry>
+<entry key="ProcessComposite.DescriptionLabel">Description</entry>
+
+<entry key="ExperimentComposite.GeneralTab">Overview</entry>
+<entry key="ExperimentComposite.SubjectsTab">Study subjects</entry>
+<entry key="ExperimentComposite.ProcessesTab">Processes</entry>
+
+<entry key="ExperimentGeneralComposite.ExperimentClassLabel">Experiment type:</entry>
+<entry key="ExperimentGeneralComposite.DateLabel">Experiment date:</entry>
+<entry key="ExperimentGeneralComposite.LocationLabel">Experiment location:</entry>
+<entry key="ExperimentGeneralComposite.DateButton">set Date</entry>
+<entry key="ExperimentGeneralComposite.DateDialog">choose a date</entry>
+
+<entry key="ApplicationComposite.ParameterLabel">Parameters:</entry>
+
+<!-- gender -->
+<entry key="Gender.Female.Short">f</entry>
+<entry key="Gender.Male.Short">m</entry>
+
+<!-- error box messages -->
+<entry key="ErrorMessage.FileNotFound">File not found:</entry>
+<entry key="ErrorMessage.FileIsDir">File is directory:</entry>
+<entry key="ErrorMessage.SubjectRole">Trying to set subject with incompatible role</entry>
+<entry key="ErrorMessage.LoadingEmployee">Error accessing employee data</entry>
+<entry key="ErrorMessageHeader.ErrorStoringExperiment">Storage Error</entry>
+<entry key="ErrorMessage.ErrorStoringExperiment">Could not save the experiment</entry>
+<entry key="ErrorMessageHeader.ExperimentNotComplete">Experiment not complete!</entry>
+<entry key="ErrorMessage.ExperimentNotComplete">You have to enter all required information about an experiment before it can be saved!</entry>
+<entry key="ErrorMessageHeader.ExperimentDialog">Could not open Experiment dialog</entry>
+<entry key="ErrorMessage.ExperimentDialog">The application was not able to open the Experiment Dialog</entry>
+<entry key="ErrorMessageHeader.InterviewError">Error during interview</entry>
+<entry key="ErrorMessage.InterviewError">An error occured, the interview was not finished</entry>
+<entry key="ErrorMessageHeader.InterviewNotFinished">Stopped interview</entry>
+<entry key="ErrorMessage.InterviewNotFinished">You have not finished the interview, please proceed</entry>
+
+
+<!-- info box messages -->
+<entry key="InfoMessageHeader.ExperimentSaved">Experiment saved</entry>
+<entry key="InfoMessage.ExperimentSaved">Experiment is saved</entry>
+<entry key="InfoMessage.SubjectSaved">Subject saved</entry>
+
+<!-- Dialog messages -->
+<entry key="DialogMessageHeader.Quit">Quit</entry>
+<entry key="DialogMessage.Quit">Do you really want to close the application? (all unsaved data will be lost)</entry>
+
+<!-- Validation error messages -->
+<entry key="ValidationErrorMessage.WrongObjectType">Object is not an instance of one of the classes supported by this Validator</entry>
+<entry key="ValidationErrorMessage.ObjectNull">Object parameter is null</entry>
+<entry key="ValidationErrorMessage.GuiObjectNull">guiObject parameter is null</entry>
+<entry key="ValidationErrorMessage.WrongObjectArraySize">Wrong number of objects for validation</entry>
+<entry key="ValidationErrorMessage.Exception">Unexpected exception during validation</entry>
+
+<entry key="ValidationErrorMessage.Employee.EmployeeJobrole">Employee is not qualified for this type of task</entry>
+<entry key="ValidationErrorMessage.Employee.EmployeeJobNotSet">Employee's Job is not set</entry>
+<entry key="ValidationErrorMessage.Employee.EmployeeNotSet">Employee is not set</entry>
+
+<entry key="ValidationErrorMessage.Equipment.EquipmentNotSet">Equipment is not set</entry>
+<entry key="ValidationErrorMessage.Equipment.EquipmentNull">Equipment is null</entry>
+<entry key="ValidationErrorMessage.Equipment.EquipmentWrongClass">Equipment is not of the required Equipment Type</entry>
+
+<entry key="ValidationErrorMessage.ExperimentGeneral.DateNotSet">Experiment's date is not set</entry>
+<entry key="ValidationErrorMessage.ExperimentGeneral.DateTooEarly">Experiment's date must be after 1.1.2007</entry>
+<entry key="ValidationErrorMessage.ExperimentGeneral.DateAfterToday">Experiment's date is set to a date in the future</entry>
+<entry key="ValidationErrorMessage.ExperimentGeneral.LocationNotSet">Experiement's location is not set</entry>
+<entry key="ValidationErrorMessage.ExperimentGeneral.ExceptionLocation">Exception during loading the location object for this experiment</entry>
+
+<entry key="ValidationErrorMessage.Experiment.ExeceptionLoadingClass">Exception during loading experiment types.</entry>
+<entry key="ValidationErrorMessage.Experiment.ExceptionLoadingMP">Exception during loading measurement point</entry>
+<entry key="ValidationErrorMessage.Experiment.ExceptionLoadingPriorityList">Exception during loading subject priority list</entry>
+<entry key="ValidationErrorMessage.Experiment.ExceptionLoadingProcessClass">Exception during loading process types</entry>
+<entry key="ValidationErrorMessage.Experiment.TooManySubject">Too many subjects for this experiment</entry>
+<entry key="ValidationErrorMessage.Experiment.NotAllSubject">Not all subjects for this experiment have been created</entry>
+
+<entry key="ValidationErrorMessage.ExtraField.WrongDataType">Wrong data type for process specific information.</entry>
+<entry key="ValidationErrorMessage.ExtraField.FieldNotSet">Process specific information is not set.</entry>
+<entry key="ValidationErrorMessage.ExtraField.FieldTypeIsWrong">Process specific information is not of the correct type</entry>
+<entry key="ValidationErrorMessage.ExtraField.ExceptionLoadingType">"Didn't find type for the process specific information"</entry>
+
+<entry key="ValidationErrorMessage.Process.IdNull">Process type not set for this process</entry>
+<entry key="ValidationErrorMessage.Process.Exception">Unexpected Exception while validating Process</entry>
+<entry key="ValidationErrorMessage.Process.TooManyDataItems">Too many data items for this process type</entry>
+<entry key="ValidationErrorMessage.Process.NotAllDataItems">Not all data items for this process type</entry>
+
+<entry key="ValidationErrorMessage.Subject.SubjectNotSet">Subject is not set</entry>
+<entry key="ValidationErrorMessage.Subject.PriorityListNoAnchor">No anchor for subject piority list is set</entry>
+<entry key="ValidationErrorMessage.Subject.SubjectWrongRoleId">subject's roleId is set to a incorrect value</entry>
+<entry key="ValidationErrorMessage.Subject.SubjectMissingRole">subject's does not have the required subject role</entry>
+<entry key="ValidationErrorMessage.Subject.NoMeasurementRole">No measurement subject role is set for measurement point</entry>
+<entry key="ValidationErrorMessage.Subject.ErrorCalculateSubjectRelation">Error calculation subject relationships</entry>
+<entry key="ValidationErrorMessage.Subject.ExceptionPossChildren">Exception occured while calculating related children</entry>
+<entry key="ValidationErrorMessage.Subject.ExceptionFullSubject">Exception occured while loading additional subject information</entry>
+<entry key="ValidationErrorMessage.Subject.NoPossibleChildren">The choosen subjects do not belong to one family</entry>
+<entry key="ValidationErrorMessage.Subject.NotRelatedToChild">The subject is not related to one of the possible children</entry>
+<entry key="ValidationErrorMessage.Subject.ExceptionAccessRelated">Exception occured while accessing related subjects</entry>
+<entry key="ValidationErrorMessage.Subject.ExceptionAccessRole">Exception occured while accessing the subject's role</entry>
+<entry key="ValidationErrorMessage.Subject.MissingLifedate">Subject does not have the required lifedate</entry>
+<entry key="ValidationErrorMessage.Subject.ExceptionLifedate">Exception occured whle accessin the suject's lifedate</entry>
+<entry key="ValidationErrorMessage.Subject.SameRoleOtherSubject">Another subject has the same role as this subject</entry>
+
+<entry key="ValidationErrorMessage.DataItem.DataItemClassIsNull">DataItem's DataItemClass is null</entry>
+<entry key="ValidationErrorMessage.DataItem.DataItemClassIncorrect">DataItem's DataItemClass is not correct</entry>
+
+<entry key="ValidationErrorMessage.DataItemInterview.FilesNull">data item's files vector is null</entry>
+<entry key="ValidationErrorMessage.DataItemInterview.FilesSize">data item's files vector's size is not 1</entry>
+<entry key="ValidationErrorMessage.DataItemInterview.NameOrPathNull">data item's file name or path is null</entry>
+<entry key="ValidationErrorMessage.DataItemInterview.PathNoDirectory">data item's path is not a directory</entry>
+<entry key="ValidationErrorMessage.DataItemInterview.FileNameInvalid">data item's filename is not a valid filename</entry>
+
+<entry key="ValidationErrorMessage.DataItemSample.ExceptionLoadingClass">Error reading DataItemClass data</entry>
+<entry key="ValidationErrorMessage.DataItemSample.DataNull">DataItem's data is null</entry>
+<entry key="ValidationErrorMessage.DataItemSample.DataSize">DataItem data size is != 3 for sample data item</entry>
+<entry key="ValidationErrorMessage.DataItemSample.NullName">null data name for sample item</entry>
+<entry key="ValidationErrorMessage.DataItemSample.WrongName">wrong data name for sample item</entry>
+<entry key="ValidationErrorMessage.DataItemSample.AcNotSet">AC code for Sample is not set</entry>
+<entry key="ValidationErrorMessage.DataItemSample.ExceptionPraefix">Exception during accessing of sample code praefix</entry>
+<entry key="ValidationErrorMessage.DataItemSample.AcNotValid">AC code for sample has to be the correct sample type praefix letter followed by 8 digits</entry>
+<entry key="ValidationErrorMessage.DataItemSample.VolumeNoInt">Volume has to be a integer number</entry>
+<entry key="ValidationErrorMessage.DataItemSample.VolumeBelowEqZero">A volume below or equal to 0 is not possible</entry>
+
+
+<entry key="ValidationErrorMessage.DataItemQuest.ExceptionLoadingClass">Error reading DataItemClass data</entry>
+<entry key="ValidationErrorMessage.DataItemQuest.DataNull">DataItem's data is null</entry>
+<entry key="ValidationErrorMessage.DataItemQuest.DataSize">DataItem data size is != 1 for questionnaire data item</entry>
+<entry key="ValidationErrorMessage.DataItemQuest.NullName">null data name for questionnaire item</entry>
+<entry key="ValidationErrorMessage.DataItemQuest.WrongName">wrong data name for questionnaire item</entry>
+<entry key="ValidationErrorMessage.DataItemQuest.AcNotSet">AC code for questionnaire is not set</entry>
+<entry key="ValidationErrorMessage.DataItemQuest.ExceptionPraefix">Exception during accessing of questionnaire code praefix</entry>
+<entry key="ValidationErrorMessage.DataItemQuest.AcNotValid">AC code for questionnaire is not an EAN-13 code (13 digits)</entry>
+
+<!-- Validation Tree nodes -->
+<entry key="ValidationTreeNode.Experiment">Experiment</entry>
+<entry key="ValidationTreeNode.Process">Process</entry>
+<entry key="ValidationTreeNode.Application">Application</entry>
+<entry key="ValidationTreeNode.DataItem">Data item</entry>
+<entry key="ValidationTreeNode.Equipment">Equipment</entry>
+<entry key="ValidationTreeNode.Employee">Employee</entry>
+<entry key="ValidationTreeNode.Data">Process specific information</entry>
+<entry key="ValidationTreeNode.StudySubject">StudySubject</entry>
+<entry key="ValidationTreeNode.Error">Error: </entry>
+
+<!-- ValidationErrorSeverity -->
+<entry key="ValidationErrorSeverity.Error">Error</entry>
+<entry key="ValidationErrorSeverity.Fatal">Fatal</entry>
+<entry key="ValidationErrorSeverity.Warning">Warning</entry>
+</properties>

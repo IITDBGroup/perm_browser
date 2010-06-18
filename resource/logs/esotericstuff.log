@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>query log</comment>
+<entry key="query2">SELECT PROVENANCE&#13;	count(*)&#13;FROM&#13;	newcust c1&#13;WHERE&#13;	c1.cid IN (SELECT c2.cid FROM customers c2 WHERE c1.cid = c2.cid AND c2.country = 'US')&#13;	OR&#13;	c1.cid IN (SELECT c3.cid FROM customers c3 WHERE c1.cid = c3.cid AND c3.country = 'GB')</entry>
+<entry key="query1">SELECT PROVENANCE &#13;(SELECT max(totalqnt) AS qnt FROM itemquantity) AS maxqant;&#13;</entry>
+<entry key="query0">SELECT PROVENANCE * FROM&#13;itemquantity i&#13;WHERE&#13;	(SELECT i2.totalqnt FROM itemquantity i2 WHERE i.item = i2.item) = (SELECT max(i3.totalqnt) FROM itemquantity i3);</entry>
+</properties>

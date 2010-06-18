@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<comment>query log</comment>
+<entry key="query9">SELECT PROVENANCE &#13;	(x.revenue::DECIMAL / y.revenue::DECIMAL) AS relative_topcust_revenue, &#13;	x.country&#13;FROM &#13;	(SELECT sum(revenue) AS revenue, country &#13;	FROM topcust&#13;	GROUP BY country) BASERELATION  AS x,&#13;	(SELECT sum(price * quantity) AS revenue, country&#13;	FROM customers c, orders o, orderitem oi, items i&#13;	WHERE c.cid = o.cid AND o.oid = oi.oid AND oi.iid = i.iid&#13;	GROUP BY c.country) BASERELATION AS y &#13;WHERE &#13;	x.country = y.country;</entry>
+<entry key="query8">SELECT PROVENANCE &#13;	(x.revenue::DECIMAL / y.revenue::DECIMAL) AS relative_topcust_revenue,&#13;	 x.country&#13;FROM &#13;	(SELECT sum(revenue) AS revenue, country &#13;	FROM topcust&#13;	GROUP BY country) AS x,&#13;	(SELECT sum(price * quantity) AS revenue, country&#13;	FROM customers c, orders o, orderitem oi, items i&#13;	WHERE c.cid = o.cid AND o.oid = oi.oid AND oi.iid = i.iid&#13;	GROUP BY c.country) AS y &#13;WHERE &#13;	x.country = y.country;</entry>
+<entry key="query7">SELECT PROVENANCE&#13;	*&#13;FROM&#13;	(SELECT * FROM items WHERE price &gt; 80&#13;	INTERSECT&#13;	SELECT i.* FROM items i, sources s WHERE sourceId = sid AND s.name LIKE 'WWID%') AS topfromone;</entry>
+<entry key="query6">SELECT PROVENANCE&#13;	*&#13;FROM&#13;	(SELECT * FROM items WHERE price &gt; 40&#13;	UNION&#13;	SELECT * FROM items WHERE price &lt; 55) AS topandlow;</entry>
+<entry key="query5">SELECT PROVENANCE &#13;	items.name, &#13;	items.price &#13;FROM &#13;	(SELECT i.iid, i.name, i.price, s.name AS sname, s.quality &#13;		FROM items i JOIN sources s ON sourceId = sid) PROVENANCE (sname, quality) AS items &#13;	JOIN orderitem oi ON (items.iid = oi.iid);</entry>
+<entry key="query4">SELECT PROVENANCE &#13;	i.* &#13;FROM &#13;	items i &#13;	JOIN &#13;	orderitem oi ON (i.iid = oi.iid);</entry>
+<entry key="query3">SELECT *&#13;FROM &#13;	(SELECT PROVENANCE * FROM itemquantity) AS item&#13;WHERE&#13;	prov_public_orderitem_oid = 3;&#13;</entry>
+<entry key="query2">SELECT PROVENANCE &#13;	i.name AS item, &#13;	CASE WHEN sum(quantity) IS NOT NULL THEN sum(quantity) ELSE 0 END AS totalqnt &#13;FROM &#13;	items i &#13;	LEFT OUTER JOIN &#13;	orderitem oi ON (i.iid = oi.iid) &#13;GROUP BY &#13;	i.iid, i.name;</entry>
+<entry key="query17">SELECT PROVENANCE &#13;	c.name &#13;FROM&#13;	customers c;</entry>
+<entry key="query1">SELECT PROVENANCE &#13;	count(*) AS numcust, &#13;	country &#13;FROM &#13;	customers c &#13;GROUP BY country;</entry>
+<entry key="query0">SELECT PROVENANCE &#13;	c.name &#13;FROM&#13;	customers c;</entry>
+<entry key="query16">SELECT PROVENANCE &#13;	c.name &#13;FROM&#13;	customers c;</entry>
+<entry key="query15">SELECT PROVENANCE &#13;	c.name &#13;FROM&#13;	customers c;</entry>
+<entry key="query14">SELECT PROVENANCE &#13;	c.name &#13;FROM&#13;	customers c;</entry>
+<entry key="query13">SELECT PROVENANCE&#13;	count(*) AS numorders,	&#13;	c.name&#13;FROM &#13;	customers c,&#13;	orders o&#13;WHERE&#13;	c.cid = o.cid&#13;GROUP BY&#13;	c.name&#13;HAVING count(*) = &#13;	(SELECT max (numorders) &#13;	FROM&#13;		(SELECT&#13;			count(*) AS numorders&#13;		FROM&#13;			customers c2,&#13;			orders o2&#13;		WHERE&#13;			c2.cid = o2.cid&#13;		GROUP BY&#13;			c2.cid) AS nums)&#13;;</entry>
+<entry key="query12">SELECT PROVENANCE&#13;	*&#13;FROM&#13;	customers c1&#13;WHERE&#13;	EXISTS (SELECT * FROM customers c2 WHERE c1.cid != c2.cid AND c1.country = c2.country) &#13;ORDER BY name;</entry>
+<entry key="query11">SELECT PROVENANCE&#13;	i.name, &#13;	sum(price * quantity) AS total&#13;FROM &#13;	items i,&#13;	orderitem oi&#13;WHERE&#13;	i.iid = oi.iid&#13;GROUP BY &#13;	i.name&#13;ORDER BY total DESC&#13;LIMIT 3;</entry>
+<entry key="query10">SELECT PROVENANCE &#13;	(x.revenue::DECIMAL / y.revenue::DECIMAL) AS relative_topcust_revenue, &#13;	x.country&#13;FROM &#13;	(SELECT sum(revenue) AS revenue, country &#13;	FROM topcust BASERELATION&#13;	GROUP BY country)  AS x,&#13;	(SELECT sum(price * quantity) AS revenue, country&#13;	FROM customers c, orders o, orderitem oi, items i&#13;	WHERE c.cid = o.cid AND o.oid = oi.oid AND oi.iid = i.iid&#13;	GROUP BY c.country) BASERELATION AS y &#13;WHERE &#13;	x.country = y.country;</entry>
+</properties>

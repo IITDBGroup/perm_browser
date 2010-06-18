@@ -1,0 +1,26 @@
+digraph G {
+node [fontsize=24];
+
+subgraph cluster0 {
+label = "TopQueryNode"
+node [style=filled];
+style=filled;
+color=lightgrey;
+top0 [label="&#928;",color=violet];
+}
+
+
+
+{
+rank=same;
+oderdir=LR;
+rel0 [label="customers",shape=box,color=yellow,style=filled];
+
+
+edge [style=invis,constraint=true];
+rel0;
+}
+
+top0 -> rel0;
+
+}
