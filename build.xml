@@ -31,6 +31,12 @@
 				<contains string="${os.name}" substring="OS X" />
 			</and>
 		</condition>
+		<condition property="os.linux">
+			<and>
+				<os family="unix" />
+				<contains string="${os.name}" substring="Linux" />
+			</and>
+		</condition>
 		<fail message="unsupported OS">
 			<condition>
 				<not>
@@ -38,6 +44,7 @@
 						<isset property="os.win" />
 						<isset property="os.mac1.5" />
 						<isset property="os.mac1.6" />
+						<isset property="os.linux" />
 					</or>
 				</not>
 			</condition>
@@ -66,6 +73,8 @@
 		<antcall target="mac1.5jar" />
 		<!-- build jar for mac OS X 1.6 -->
 		<antcall target="mac1.6jar" />
+		<!-- build jar for linux -->
+		<antcall target="linuxjar" />
 	</target>	
 	
 	<target name="winjar" if="os.win">
@@ -148,25 +157,51 @@
 			</manifest>
 		</jar>
 	</target>
+	
+	<target name="linuxjar" if="os.linux">
+		<jar destfile="${builddir}/BrowserLinux/permbrowser-linux.jar" basedir="${binarydir}">
+			<manifest>
+				<attribute name="Main-Class" value="org.perm.browser.gui.MainGui" />
+				<attribute name="Created-By" value="University of Zurich, Department for Computer Science, Boris Glavic" />
+				<attribute name="Class-Path" value="
+					lib/swtlinux/eclipse_1206.so					
+					lib/swtlinux/libcairo-swt.so					
+					lib/swtlinux/org.eclipse.swt.gtk.linux.x86_3.5.0.v3550b.jar	
+					lib/swtlinux/org.eclipse.swt_3.5.0.v3550b.jar
+					lib/SesamUtil-mac.jar
+					lib/log4j-1.2.11.jar
+					lib/postgresql-8.0-317.jdbc3.jar
+					lib/org.eclipse.jface_3.2.1.M20060908-1000.jar
+					lib/org.eclipse.core.commands_3.2.0.I20060605-1400.jar
+					lib/org.eclipse.core.runtime_3.2.0.v20060603.jar
+					lib/org.eclipse.core.runtime.compatibility_3.1.100.v20060603.jar
+					lib/org.eclipse.equinox.common_3.2.0.v20060603.jar
+					lib/org.eclipse.osgi_3.2.1.R32x_v20060919.jar
+					lib/
+					resource/
+				" />
+			</manifest>
+		</jar>
+	</target>
 			
 	<target name="dist" depends="jar">
 		<antcall target="bundleMac1.5"></antcall>
 		<antcall target="bundleMac1.6"></antcall>
 		<antcall target="bundleWin"></antcall>
+		<antcall target="bundleLinux"></antcall>
 	</target>	
 	
 	<target name="bundleWin" if="os.win">
-		<copy todir="${builddir}/BrowserWin/resource">
-			<fileset dir="${resourcedir}">
-				<exclude name=".svn"/>
-			</fileset>
-		</copy>
 		<copy todir="${builddir}/BrowserWin/lib">
 			<fileset dir="${librarydir}">
 				<exclude name=".svn"/>
-				<exclude name="*.jnilib"/>
 				<exclude name="swtmac*" />
-				<exclude name="swt-mac.jar"/>
+				<exclude name="swtlinux*" />
+			</fileset>
+		</copy>
+		<copy todir="${builddir}/BrowserWin/resource">
+			<fileset dir="${resourcedir}">
+				<exclude name=".svn"/>
 			</fileset>
 		</copy>
 	</target>	
@@ -176,10 +211,9 @@
 			<fileset dir="${librarydir}">
 				<exclude name=""/>
 				<exclude name=".svn"/>
-				<exclude name="*.dll"/>
-				<exclude name="swt-win.jar"/>
-				<exclude name="swtwin" />
-				<exclude name="swtmaccocoa" />
+				<exclude name="swtwin*" />
+				<exclude name="swtlinux*" />
+				<exclude name="swtmaccocoa*" />
 			</fileset>
 		</copy>
 		<antcall target="copy-resources-mac" />
@@ -189,15 +223,13 @@
 		<copy todir="${bundledir}/lib">
 			<fileset dir="${librarydir}">
 				<exclude name=".svn"/>
-				<exclude name="*.dll"/>
-				<exclude name="swt-win.jar"/>
-				<exclude name="swtwin" />
-				<exclude name="swtmacarbon" />
+				<exclude name="swtwin*" />
+				<exclude name="swtlinux*" />
+				<exclude name="swtmaccarbon*" />
 			</fileset>
 		</copy>
 		<antcall target="copy-resources-mac" />
 	</target>
-	
 	
 	<target name="copy-resources-mac">
 		<copy todir="${bundledir}/resource">
@@ -205,6 +237,17 @@
 				<exclude name=".svn"/>
 			</fileset>
 		</copy>
+	</target>
+	
+	<target name="bundleLinux" if="os.linux">
+		<copy todir="${builddir}/BrowserLinux/lib">
+			<fileset dir="${librarydir}">
+				<exclude name=".svn"/>
+				<exclude name="swtwin*" />
+				<exclude name="swtmac*" />
+			</fileset>
+		</copy>
+		<antcall target="copy-resources-mac" />
 	</target>
 
 	
