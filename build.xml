@@ -57,6 +57,8 @@
 		 </delete>
 		<mkdir dir="${binarydir}" />		
 		<mkdir dir="${builddir}" />
+		<mkdir dir="${builddir}/BrowserWin" />
+		<mkdir dir="${builddir}/BrowserLinux" />
 	</target>
 	
 	<target name="compile" depends="clean">
@@ -247,7 +249,11 @@
 				<exclude name="swtmac*" />
 			</fileset>
 		</copy>
-		<antcall target="copy-resources-mac" />
+		<copy todir="${builddir}/BrowserLinux/resource">
+			<fileset dir="${resourcedir}">
+				<exclude name=".svn"/>
+			</fileset>
+		</copy>
 	</target>
 
 	
