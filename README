@@ -3,13 +3,14 @@ Perm Browser Application
 
 1) ABOUT
 --------------------------------
-The Perm Browser is a Java Gui application that can be used to connect to a Perm server and
-execute queries. It demonstrates the query rewrites applied by Perm by presenting the rewritten
+The Perm Browser is a Java Gui application that can be used to
+connect to a Perm server and execute queries. It demonstrates the 
+query rewrites applied by Perm by presenting the rewritten
 query as plain SQL and the original and rewritten algebra trees.
 
 2) PREQUISITES
 --------------------------------
--Mac OS X or Windows
+-Mac OS X, Linux or Windows
 -Java 1.5 or newer
 -Graphviz (dot)
 -Perm server
@@ -17,40 +18,68 @@ query as plain SQL and the original and rewritten algebra trees.
 
 3) INSTALL
 --------------------------------
-The main folder contains an Ant script. Make sure you have Ant installed on your machine.
-Change into the folder and call ant
+The main folder contains an Ant build file. Make sure you have Ant
+installed on your machine. Change into the Perm Browser folder 
+and call ant:
 
 > ant 
 
-This will compile the Perm Browser application and generate a PermBrowser.app bundle in the
-build subdirectory. This is the Mac OS X version of the application. The windows version
-is found in build/BrowserWin.
+This will compile the Perm Browser application and build an executable 
+in the 'build' directory: 
+	-PermBrowser.app bundle (Mac OS X)
+	-BrowserWin/RunWin.bat (Windows)
+	-BrowserLinux/startBrowser.sh (Linux)
+	 
 
 4) CONFIGURATION
 --------------------------------
-For the application to work properly you have to adjust the configuration file found in
+a) For the application to work properly you have to adjust the 
+configuration file found in
 
-PermBrowser/Contents/MacOS/resource/conf/general.txt 	(MAC OS)
-BrowserWin/resource/conf/general.txt					(WINDOWS)
+PermBrowser/Contents/MacOS/resource/conf/general.txt 	(Mac OS X)
+BrowserWin/resource/conf/general.txt					(Windows)
+BrowserLinux/resource/conf/general.txt					(Linux)
 
 You'll have to apply the following changes:
 
--change the "DotCommand" parameter so that it points to the dot executable on your system.
--adapt the database connection options to fit your Perm server installation:
-	-DB.User 				(database user to use for the connection. default is postgres)
-	-DB.Url					(IP of the machine the Perm server runs on. default is 127.0.0.1)
-	-DB.DatabaseName 		(name of the database to connect too. default is demo)
-	-DB.Password			(password for the user to connect with. default is none)
+-change the "DotCommand" parameter so that it points to the dot
+executable on your system.
+-adapt the database connection options to fit your Perm server
+installation:
+	-DB.User 				(database user to use for the connection.
+							 default is postgres)
+	-DB.Url					(IP of the machine the Perm server runs 
+							on. default is 127.0.0.1)
+	-DB.DatabaseName 		(name of the database to connect too. 
+							default is demo)
+	-DB.Password			(password for the user to connect with. 
+							default is none)
+	
+b) Create the demo database: 
+
+-Start your perm server and create the database you have set in general.txt 
+or if it already exists connect to it using psql.
+
+-(Optional): Load the demodb/demo.sql script (with '\i') to be able to run
+some predefined demo queries.
 	
 5) RUN
 --------------------------------
-Mac OS X: Double-Click the PermBrowser.app bundle or start PermBrowser/Contents/MacOS/runMac.sh from the terminal
+Mac OS X: 	Double-Click the PermBrowser.app bundle or start 
+			PermBrowser/Contents/MacOS/runMac.sh from the terminal
 
-Windows: Start runWin.bat
+Windows: 	Start runWin.bat
+
+Linux: 		Start startBrowser.sh
 
 6) USAGE
 --------------------------------
-Type in queries (with or without provenance computation) in the Query text field. Hit run to execute a query
-and observe the query result, rewritten query SQL text, and original and rewritten algebra trees. The folder
-demodb contains a SQL script that generates a small demonstration database (use e.g. psql to run the script). You can load
-some precooked queries from the resource/logs folder using the File application menu of the browser application.
+Type in queries (with or without provenance computation) in the Query text
+field. Hit run to execute a query and observe the query result, rewritten 
+query SQL text, and original and rewritten algebra trees. The folder
+demodb contains a SQL script that generates a small demonstration database 
+(use e.g. psql to run the script). All queries executed in a session are available
+in the drop down menu above the run button. This execution history can be saved to 
+disk or loaded from a file. You can load some precooked queries from
+the resource/logs folder using the File application menu of the browser 
+application.
