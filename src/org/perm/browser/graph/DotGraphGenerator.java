@@ -3,6 +3,7 @@
  */
 package org.perm.browser.graph;
 
+import java.io.IOException;
 import java.net.URISyntaxException;
 
 import org.apache.log4j.Logger;
@@ -29,6 +30,8 @@ public class DotGraphGenerator {
 			dot.init();
 		}
 		catch (URISyntaxException e) {
+			ExceptionLogger.logException(e, log);
+		} catch (IOException e) {
 			ExceptionLogger.logException(e, log);
 		}
 	}

@@ -1,4 +1,4 @@
-<project name="Build PermBrowser" default="createMacBundle" basedir=".">
+<project name="Build PermBrowser" default="dist" basedir=".">
 	
 	<property name="sourcedir" value="${basedir}/src" />
 	<property name="binarydir" value="${basedir}/bin" />
@@ -6,12 +6,45 @@
 	<property name="builddir" value="${basedir}/build" />
 	<property name="resourcedir" value="${basedir}/resource/" />
 	<property name="bundledir" value="${basedir}/build/PermBrowser.app/Contents/MacOS/" />
+	<property name="OSType" value="${os.name}:${os.arch}:${os.version}" />
 	
 	<path id="libraries">
 		<fileset dir="${librarydir}" />
 	</path>
 	
-	<target name="clean">
+	<target name="init">
+		<echo message="building on ${OSType}" />
+		<condition property="os.win">
+			<os family="windows" />
+		</condition>
+		<condition property="os.mac1.6">
+			<and>
+				<os family="mac" />
+				<matches string="${os.version}" pattern="10.6.*" />
+				<contains string="${os.name}" substring="OS X" />
+			</and>
+		</condition>
+		<condition property="os.mac1.5">
+			<and>
+				<os family="mac" />
+				<not><matches string="${os.version}" pattern="10.6.*" /></not>
+				<contains string="${os.name}" substring="OS X" />
+			</and>
+		</condition>
+		<fail message="unsupported OS">
+			<condition>
+				<not>
+					<or>
+						<isset property="os.win" />
+						<isset property="os.mac1.5" />
+						<isset property="os.mac1.6" />
+					</or>
+				</not>
+			</condition>
+		</fail>
+	</target>
+	
+	<target name="clean" depends="init">
 		<delete includeemptydirs="true">
 			<fileset dir="${binarydir}" includes="**/*"/>
 		 </delete>
@@ -19,39 +52,33 @@
 		<mkdir dir="${builddir}" />
 	</target>
 	
-	<target name="compile" depends="clean, copy-resources">
-		<javac srcdir="${sourcedir}" destdir="${binarydir}" classpathref="libraries" debug="on">
+	<target name="compile" depends="clean">
+		<javac srcdir="${sourcedir}" destdir="${binarydir}" classpathref="libraries" 
+			debug="on" excludes="**/.svn*">
 			<compilerarg value="-Xlint:unchecked" />
 		</javac>
 	</target>
 	
-	<target name="copy-resources">
-		<copy todir="${builddir}/BrowserWin/resource">
-			<fileset dir="${resourcedir}">
-				<exclude name=".svn"/>
-			</fileset>
-		</copy>
-		<copy todir="${builddir}/BrowserWin/lib">
-			<fileset dir="${librarydir}">
-				<exclude name=".svn"/>
-				<exclude name="*.jnilib"/>
-				<exclude name="swt-mac.jar"/>
-				<exclude name="swt-win.jar"/>
-			</fileset>
-		</copy>
+	<target name="jar" depends="clean, compile">
+		<!-- build jar for windows -->
+		<antcall target="winjar" />
+		<!-- build jar for mac OS X 1.5 and below -->
+		<antcall target="mac1.5jar" />
+		<!-- build jar for mac OS X 1.6 -->
+		<antcall target="mac1.6jar" />
 	</target>	
 	
-	<target name="jar" depends="clean, compile">
+	<target name="winjar" if="os.win">
 		<jar destfile="${builddir}/BrowserWin/permbrowser-win.jar" basedir="${binarydir}">
 			<manifest>
 				<attribute name="Main-Class" value="org.perm.browser.gui.MainGui" />
 				<attribute name="Created-By" value="University of Zurich, Department for Computer Science, Boris Glavic" />
 				<attribute name="Class-Path" value="
-					lib/swt-win.jar
-					lib/swt-awt-win32-3236.dll
-					lib/swt-gdipwin32-3236.dll
-					lib/swt-wgl-win32-3236.dll
-					lib/swt-win32-3236.dll
+					lib/swtwin/swt-win.jar
+					lib/swtwin/swt-awt-win32-3236.dll
+					lib/swtwin/swt-gdipwin32-3236.dll
+					lib/swtwin/swt-wgl-win32-3236.dll
+					lib/swtwin/swt-win32-3236.dll
 					lib/SesamUtil-mac.jar
 					lib/log4j-1.2.11.jar
 					lib/postgresql-8.0-317.jdbc3.jar
@@ -66,16 +93,19 @@
 					" />
 			</manifest>
 		</jar>
+	</target>
+
+	<target name="mac1.5jar" if="os.mac1.5">		
 		<jar destfile="${bundledir}/permbrowser-mac.jar" basedir="${binarydir}">
 			<manifest>
 				<attribute name="Main-Class" value="org.perm.browser.gui.MainGui" />
 				<attribute name="Created-By" value="University of Zurich, Department for Computer Science, Boris Glavic" />
 				<attribute name="Class-Path" value="
-					lib/swt-mac.jar
-					lib/libswt-agl-carbon-3236.jnilib
-					lib/libswt-carbon-3236.jnilib
-					lib/libswt-pi-carbon-3236.jnilib
-					lib/libswt-webkit-carbon-3236.jnilib
+					lib/swtmaccarbon/swt-mac.jar
+					lib/swtmaccarbon/libswt-agl-carbon-3236.jnilib
+					lib/swtmaccarbon/libswt-carbon-3236.jnilib
+					lib/swtmaccarbon/libswt-pi-carbon-3236.jnilib
+					lib/swtmaccarbon/libswt-webkit-carbon-3236.jnilib
 					lib/SesamUtil-mac.jar
 					lib/log4j-1.2.11.jar
 					lib/postgresql-8.0-317.jdbc3.jar
@@ -90,23 +120,92 @@
 				" />
 			</manifest>
 		</jar>
+	</target>
+	
+	<target name="mac1.6jar" if="os.mac1.6">
+		<jar destfile="${bundledir}/permbrowser-mac.jar" basedir="${binarydir}">
+			<manifest>
+				<attribute name="Main-Class" value="org.perm.browser.gui.MainGui" />
+				<attribute name="Created-By" value="University of Zurich, Department for Computer Science, Boris Glavic" />
+				<attribute name="Class-Path" value="
+					lib/swtmaccocoa/libswt-awt-cocoa-3557.jnilib				
+					lib/swtmaccocoa/libswt-pi-cocoa-3557.jnilib				
+					lib/swtmaccocoa/org.eclipse.swt_3.5.2.v3557f.jar
+					lib/swtmaccocoa/libswt-cocoa-3557.jnilib				
+					lib/swtmaccocoa/org.eclipse.swt.cocoa.macosx.x86_64_3.5.2.v3557f.jar
+					lib/SesamUtil-mac.jar
+					lib/log4j-1.2.11.jar
+					lib/postgresql-8.0-317.jdbc3.jar
+					lib/org.eclipse.jface_3.2.1.M20060908-1000.jar
+					lib/org.eclipse.core.commands_3.2.0.I20060605-1400.jar
+					lib/org.eclipse.core.runtime_3.2.0.v20060603.jar
+					lib/org.eclipse.core.runtime.compatibility_3.1.100.v20060603.jar
+					lib/org.eclipse.equinox.common_3.2.0.v20060603.jar
+					lib/org.eclipse.osgi_3.2.1.R32x_v20060919.jar
+					lib/
+					resource/
+				" />
+			</manifest>
+		</jar>
+	</target>
+			
+	<target name="dist" depends="jar">
+		<antcall target="bundleMac1.5"></antcall>
+		<antcall target="bundleMac1.6"></antcall>
+		<antcall target="bundleWin"></antcall>
 	</target>	
 	
+	<target name="bundleWin" if="os.win">
+		<copy todir="${builddir}/BrowserWin/resource">
+			<fileset dir="${resourcedir}">
+				<exclude name=".svn"/>
+			</fileset>
+		</copy>
+		<copy todir="${builddir}/BrowserWin/lib">
+			<fileset dir="${librarydir}">
+				<exclude name=".svn"/>
+				<exclude name="*.jnilib"/>
+				<exclude name="swtmac*" />
+				<exclude name="swt-mac.jar"/>
+			</fileset>
+		</copy>
+	</target>	
+		
+	<target name="bundleMac1.5" if="os.mac1.5">
+		<copy todir="${bundledir}/lib">
+			<fileset dir="${librarydir}">
+				<exclude name=""/>
+				<exclude name=".svn"/>
+				<exclude name="*.dll"/>
+				<exclude name="swt-win.jar"/>
+				<exclude name="swtwin" />
+				<exclude name="swtmaccocoa" />
+			</fileset>
+		</copy>
+		<antcall target="copy-resources-mac" />
+	</target>
 
-	<target name="createMacBundle" depends="jar">
+	<target name="bundleMac1.6" if="os.mac1.6">
 		<copy todir="${bundledir}/lib">
 			<fileset dir="${librarydir}">
 				<exclude name=".svn"/>
 				<exclude name="*.dll"/>
 				<exclude name="swt-win.jar"/>
+				<exclude name="swtwin" />
+				<exclude name="swtmacarbon" />
 			</fileset>
 		</copy>
+		<antcall target="copy-resources-mac" />
+	</target>
+	
+	
+	<target name="copy-resources-mac">
 		<copy todir="${bundledir}/resource">
 			<fileset dir="${resourcedir}">
 				<exclude name=".svn"/>
 			</fileset>
 		</copy>
-	</target>	
+	</target>
 
 	
 </project>	

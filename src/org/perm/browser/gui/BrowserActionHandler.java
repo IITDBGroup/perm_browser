@@ -22,6 +22,7 @@ import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.MenuItem;
 import org.perm.browser.db.QueryHandler;
 import org.perm.browser.graph.DotGraphGenerator;
+import org.perm.browser.graph.DotWrapper;
 import org.perm.browser.persist.QueryHistory;
 import org.perm.browser.textresult.TextResultSet;
 import org.sesam.utils.common.ExceptionLogger;
@@ -176,11 +177,11 @@ public class BrowserActionHandler implements SelectionListener {
 			
 			result = QueryHandler.getInstance().getRewrittenQueryDotScript(query);
 			DotGraphGenerator.getInstance().generateGraph(result);
-			gui.setPAlgebraImage(loadImageData("dottemp/dotout.jpg"));
+			gui.setPAlgebraImage(loadImageData("dottemp/" + DotWrapper.DOTOUT_FILENAME));
 			
 			result = QueryHandler.getInstance().getQueryDotScript(query);
 			DotGraphGenerator.getInstance().generateGraph(result);
-			gui.setAlgebraImage(loadImageData("dottemp/dotout.jpg"));
+			gui.setAlgebraImage(loadImageData("dottemp/" + DotWrapper.DOTOUT_FILENAME));
 			
 			result = QueryHandler.getInstance().getExecutionTime(query);
 			gui.setLabelText("ProvTime", result);
@@ -212,6 +213,8 @@ public class BrowserActionHandler implements SelectionListener {
 	private ImageData loadImageData (String filename) {
 		ImageData result;
 		
+		log.debug("load dot image: " + filename);
+		log.debug("URL: " + ClassLoader.getSystemResource(filename).toString());
 		result = new ImageData (ClassLoader.getSystemResourceAsStream(filename));
 			
 		return result;
@@ -232,11 +235,11 @@ public class BrowserActionHandler implements SelectionListener {
 			
 			result = QueryHandler.getInstance().getRewrittenQueryDotScript(query);
 			DotGraphGenerator.getInstance().generateGraph(result);
-			gui.setPAlgebraImage(loadImageData("dottemp/dotout.jpg"));
+			gui.setPAlgebraImage(loadImageData("dottemp/" + DotWrapper.DOTOUT_FILENAME));
 			
 			result = QueryHandler.getInstance().getQueryDotScript(query);
 			DotGraphGenerator.getInstance().generateGraph(result);
-			gui.setAlgebraImage(loadImageData("dottemp/dotout.jpg"));
+			gui.setAlgebraImage(loadImageData("dottemp/" + DotWrapper.DOTOUT_FILENAME));
 		}
 		catch (Exception e) {
 			ExceptionLogger.logException(e, log);
