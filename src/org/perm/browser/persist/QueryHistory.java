@@ -74,8 +74,9 @@ public class QueryHistory {
 		for(int i = 0; i < queries.size(); i++) {
 			query = queries.get(i);
 			
+			query = query.replaceAll("(\\s|\\n|\\r|\\f|\\t)+"," ");
 			if (query.length() > MAX_QUERY_SIZE) {
-				query = query.replaceAll("\\W"," ").substring(0, MAX_QUERY_SIZE - 3) + "...";
+				query = query.substring(0, MAX_QUERY_SIZE - 3) + "...";
 			}
 			
 			result[i] = query;
