@@ -1,5 +1,15 @@
 <project name="Build PermBrowser" default="dist" basedir=".">
 	
+	<!-- Internal Task defs -->
+	
+	<taskdef resource="net/sf/antcontrib/antcontrib.properties">
+	  <classpath>
+	    <pathelement location="${basedir}/lib/ant-contrib.jar"/>
+	  </classpath>
+	</taskdef>
+	
+	<!-- Properties -->
+	
 	<property name="sourcedir" value="${basedir}/src" />
 	<property name="binarydir" value="${basedir}/bin" />
 	<property name="librarydir" value="${basedir}/lib" />
@@ -8,9 +18,95 @@
 	<property name="bundledir" value="${basedir}/build/PermBrowser.app/Contents/MacOS/" />
 	<property name="OSType" value="${os.name}:${os.arch}:${os.version}" />
 	
+	<!-- Class-path set up -->
+	
 	<path id="libraries">
 		<fileset dir="${librarydir}" />
 	</path>
+	
+	<path id="genClassPath">
+		<fileset dir="${librarydir}">
+			<include name="*.jar"/>
+			<exclude name="ant-*.jar"/>
+		</fileset>
+	</path>
+			
+	<path id="winClassPath">
+		<path refid="genClassPath" />
+	    <fileset dir="${librarydir}/swtwin">
+	    	<include name="*.jar"/>
+	    	<include name="*.dll"/>
+	    </fileset>
+	</path>
+
+	<pathconvert property="winJarClasspath" pathsep="    ">
+		<path refid="winClassPath" />
+	    <mapper>
+	    <chainedmapper>
+	      <flattenmapper/>
+	      <globmapper from="*" to="lib/*" casesensitive="no"/>
+	    </chainedmapper>
+	    </mapper>
+	</pathconvert>
+	
+	<path id="linuxClassPath">
+		<path refid="genClassPath" />
+	    <fileset dir="${librarydir}/swtlinux">
+	    	<include name="*.jar"/>
+	    	<include name="*.so"/>
+	    </fileset>
+	</path>
+
+	<pathconvert property="linuxJarClasspath" pathsep="    ">
+		<path refid="linuxClassPath" />
+	    <mapper>
+	    <chainedmapper>
+	      <flattenmapper/>
+	      <globmapper from="*" to="lib/*" casesensitive="no"/>
+	    </chainedmapper>
+	    </mapper>
+	</pathconvert>
+	
+	
+	<path id="carbonClassPath">
+		<path refid="genClassPath" />
+	    <fileset dir="${librarydir}/swtmaccarbon">
+	    	<include name="*.jar"/>
+	    	<include name="*.jnilib"/>
+	    </fileset>
+	</path>
+	
+	<pathconvert property="carbonJarClasspath" pathsep="    ">
+		<path refid="carbonClassPath" />
+	    <mapper>
+	    <chainedmapper>
+	      <flattenmapper/>
+	      <globmapper from="*" to="lib/*" casesensitive="no"/>
+	    </chainedmapper>
+	    </mapper>
+	</pathconvert>
+	
+	
+	<path id="cocoaClassPath">
+		<path refid="genClassPath" />
+	    <fileset dir="${librarydir}/swtmaccocoa">
+	    	<include name="*.jar"/>
+	    	<include name="*.jnilib"/>
+	    </fileset>
+	</path>
+	
+	<pathconvert property="cocoaJarClasspath" pathsep="    ">
+		<path refid="cocoaClassPath" />
+	    <mapper>
+	    <chainedmapper>
+	      <flattenmapper/>
+	      <globmapper from="*" to="lib/*" casesensitive="no"/>
+	    </chainedmapper>
+	    </mapper>
+	</pathconvert>
+	
+	
+	<!-- Targets -->
 	
 	<target name="init">
 		<echo message="building on ${OSType}" />
@@ -79,111 +175,46 @@
 		<antcall target="linuxjar" />
 	</target>	
 	
-	<target name="winjar" if="os.win">
-		<jar destfile="${builddir}/BrowserWin/permbrowser-win.jar" basedir="${binarydir}">
+	<target name="genJar">
+		<echo message="Mainfest Classpath: ${manifestClasspath}" />
+		<jar destfile="${jarFileDestination}" basedir="${binarydir}">
 			<manifest>
 				<attribute name="Main-Class" value="org.perm.browser.gui.MainGui" />
-				<attribute name="Created-By" value="University of Zurich, Department for Computer Science, Boris Glavic" />
+				<attribute name="Created-By" value="University of Toronto, Department for Computer Science, Boris Glavic" />
 				<attribute name="Class-Path" value="
-					lib/swtwin/swt-win.jar
-					lib/swtwin/swt-awt-win32-3236.dll
-					lib/swtwin/swt-gdipwin32-3236.dll
-					lib/swtwin/swt-wgl-win32-3236.dll
-					lib/swtwin/swt-win32-3236.dll
-					lib/SesamUtil-mac.jar
-					lib/log4j-1.2.11.jar
-					lib/postgresql-8.0-317.jdbc3.jar
-					lib/org.eclipse.jface_3.2.1.M20060908-1000.jar
-					lib/org.eclipse.core.commands_3.2.0.I20060605-1400.jar
-					lib/org.eclipse.core.runtime_3.2.0.v20060603.jar
-					lib/org.eclipse.core.runtime.compatibility_3.1.100.v20060603.jar
-					lib/org.eclipse.equinox.common_3.2.0.v20060603.jar
-					lib/org.eclipse.osgi_3.2.1.R32x_v20060919.jar
+					${manifestClasspath}
 					lib/
-					resource/
-					" />
+					resource/"/>
 			</manifest>
-		</jar>
+	 	</jar>
+	</target>
+	
+	<target name="winjar" if="os.win">
+		<var name="manifestClasspath" value="${winJarClassPath}" />
+		<var name="jarFileDestination" 
+			value="${builddir}/BrowserWin/permbrowser-win.jar" />
+		<antcall target="genJar" />
 	</target>
 
-	<target name="mac1.5jar" if="os.mac1.5">		
-		<jar destfile="${bundledir}/permbrowser-mac.jar" basedir="${binarydir}">
-			<manifest>
-				<attribute name="Main-Class" value="org.perm.browser.gui.MainGui" />
-				<attribute name="Created-By" value="University of Zurich, Department for Computer Science, Boris Glavic" />
-				<attribute name="Class-Path" value="
-					lib/swtmaccarbon/swt-mac.jar
-					lib/swtmaccarbon/libswt-agl-carbon-3236.jnilib
-					lib/swtmaccarbon/libswt-carbon-3236.jnilib
-					lib/swtmaccarbon/libswt-pi-carbon-3236.jnilib
-					lib/swtmaccarbon/libswt-webkit-carbon-3236.jnilib
-					lib/SesamUtil-mac.jar
-					lib/log4j-1.2.11.jar
-					lib/postgresql-8.0-317.jdbc3.jar
-					lib/org.eclipse.jface_3.2.1.M20060908-1000.jar
-					lib/org.eclipse.core.commands_3.2.0.I20060605-1400.jar
-					lib/org.eclipse.core.runtime_3.2.0.v20060603.jar
-					lib/org.eclipse.core.runtime.compatibility_3.1.100.v20060603.jar
-					lib/org.eclipse.equinox.common_3.2.0.v20060603.jar
-					lib/org.eclipse.osgi_3.2.1.R32x_v20060919.jar
-					lib/
-					resource/
-				" />
-			</manifest>
-		</jar>
+	<target name="mac1.5jar" if="os.mac1.5">
+		<var name="manifestClasspath" value="${carbonJarClasspath}" />
+		<var name="jarFileDestination" 
+			value="${bundledir}/permbrowser-mac.jar" />
+		<antcall target="genJar" />
 	</target>
 	
 	<target name="mac1.6jar" if="os.mac1.6">
-		<jar destfile="${bundledir}/permbrowser-mac.jar" basedir="${binarydir}">
-			<manifest>
-				<attribute name="Main-Class" value="org.perm.browser.gui.MainGui" />
-				<attribute name="Created-By" value="University of Zurich, Department for Computer Science, Boris Glavic" />
-				<attribute name="Class-Path" value="
-					lib/swtmaccocoa/libswt-awt-cocoa-3557.jnilib				
-					lib/swtmaccocoa/libswt-pi-cocoa-3557.jnilib				
-					lib/swtmaccocoa/org.eclipse.swt_3.5.2.v3557f.jar
-					lib/swtmaccocoa/libswt-cocoa-3557.jnilib				
-					lib/swtmaccocoa/org.eclipse.swt.cocoa.macosx.x86_64_3.5.2.v3557f.jar
-					lib/SesamUtil-mac.jar
-					lib/log4j-1.2.11.jar
-					lib/postgresql-8.0-317.jdbc3.jar
-					lib/org.eclipse.jface_3.2.1.M20060908-1000.jar
-					lib/org.eclipse.core.commands_3.2.0.I20060605-1400.jar
-					lib/org.eclipse.core.runtime_3.2.0.v20060603.jar
-					lib/org.eclipse.core.runtime.compatibility_3.1.100.v20060603.jar
-					lib/org.eclipse.equinox.common_3.2.0.v20060603.jar
-					lib/org.eclipse.osgi_3.2.1.R32x_v20060919.jar
-					lib/
-					resource/
-				" />
-			</manifest>
-		</jar>
+		<var name="manifestClasspath" value="${cocoaJarClasspath}" />
+		<var name="jarFileDestination" 
+			value="${bundledir}/permbrowser-mac.jar" />
+		<antcall target="genJar" />
 	</target>
 	
 	<target name="linuxjar" if="os.linux">
-		<jar destfile="${builddir}/BrowserLinux/permbrowser-linux.jar" basedir="${binarydir}">
-			<manifest>
-				<attribute name="Main-Class" value="org.perm.browser.gui.MainGui" />
-				<attribute name="Created-By" value="University of Zurich, Department for Computer Science, Boris Glavic" />
-				<attribute name="Class-Path" value="
-					lib/swtlinux/eclipse_1206.so					
-					lib/swtlinux/libcairo-swt.so					
-					lib/swtlinux/org.eclipse.swt.gtk.linux.x86_3.5.0.v3550b.jar	
-					lib/swtlinux/org.eclipse.swt_3.5.0.v3550b.jar
-					lib/SesamUtil-mac.jar
-					lib/log4j-1.2.11.jar
-					lib/postgresql-8.0-317.jdbc3.jar
-					lib/org.eclipse.jface_3.2.1.M20060908-1000.jar
-					lib/org.eclipse.core.commands_3.2.0.I20060605-1400.jar
-					lib/org.eclipse.core.runtime_3.2.0.v20060603.jar
-					lib/org.eclipse.core.runtime.compatibility_3.1.100.v20060603.jar
-					lib/org.eclipse.equinox.common_3.2.0.v20060603.jar
-					lib/org.eclipse.osgi_3.2.1.R32x_v20060919.jar
-					lib/
-					resource/
-				" />
-			</manifest>
-		</jar>
+		<var name="manifestClasspath" value="${linuxJarClasspath}" />
+		<var name="jarFileDestination" 
+			value="${builddir}/BrowserLinux/permbrowser-linux.jar" />
+		<antcall target="genJar" />
 	</target>
 			
 	<target name="dist" depends="jar">
@@ -194,67 +225,47 @@
 	</target>	
 	
 	<target name="bundleWin" if="os.win">
-		<copy todir="${builddir}/BrowserWin/lib">
-			<fileset dir="${librarydir}">
-				<exclude name=".svn"/>
-				<exclude name="swtmac*" />
-				<exclude name="swtlinux*" />
-			</fileset>
-		</copy>
-		<copy todir="${builddir}/BrowserWin/resource">
-			<fileset dir="${resourcedir}">
-				<exclude name=".svn"/>
-			</fileset>
-		</copy>
+		<var name="deploydir" value="${builddir}/BrowserWin" />
+		<var name="swtname" value="swtwin" />
+		<antcall target="copyResources" />
 	</target>	
 		
 	<target name="bundleMac1.5" if="os.mac1.5">
-		<copy todir="${bundledir}/lib">
-			<fileset dir="${librarydir}">
-				<exclude name=""/>
-				<exclude name=".svn"/>
-				<exclude name="swtwin*" />
-				<exclude name="swtlinux*" />
-				<exclude name="swtmaccocoa*" />
-			</fileset>
-		</copy>
-		<antcall target="copy-resources-mac" />
+		<var name="deploydir" value="${bundledir}" />
+		<var name="swtname" value="swtmaccarbon" />
+		<antcall target="copyResources" />
 	</target>
 
 	<target name="bundleMac1.6" if="os.mac1.6">
-		<copy todir="${bundledir}/lib">
-			<fileset dir="${librarydir}">
-				<exclude name=".svn"/>
-				<exclude name="swtwin*" />
-				<exclude name="swtlinux*" />
-				<exclude name="swtmaccarbon*" />
-			</fileset>
-		</copy>
-		<antcall target="copy-resources-mac" />
+		<var name="deploydir" value="${bundledir}" />
+		<var name="swtname" value="swtmaccocoa" />
+		<antcall target="copyResources" />
 	</target>
-	
-	<target name="copy-resources-mac">
-		<copy todir="${bundledir}/resource">
-			<fileset dir="${resourcedir}">
-				<exclude name=".svn"/>
-			</fileset>
-		</copy>
-	</target>
-	
+		
 	<target name="bundleLinux" if="os.linux">
-		<copy todir="${builddir}/BrowserLinux/lib">
-			<fileset dir="${librarydir}">
-				<exclude name=".svn"/>
-				<exclude name="swtwin*" />
-				<exclude name="swtmac*" />
-			</fileset>
-		</copy>
-		<copy todir="${builddir}/BrowserLinux/resource">
-			<fileset dir="${resourcedir}">
-				<exclude name=".svn"/>
-			</fileset>
-		</copy>
+		<var name="deploydir" value="${buildir}/BrowserLinux" />
+		<var name="swtname" value="swtlinux" />
+		<antcall target="copyResources" />
 	</target>
 
+	<target name="copyResources">
+		<copy todir="${deploydir}/lib">
+			<fileset dir="${librarydir}">
+				<exclude name=".svn"/>
+				<exclude name="swt*/**" />
+				<exclude name="ant-*.jar" />
+			</fileset>
+		</copy>
+		<copy todir="${deploydir}/lib">
+			<fileset dir="${librarydir}/${swtname}">
+				<exclude name=".svn"/>
+			</fileset>
+		</copy>
+		<copy todir="${deploydir}/resource">
+			<fileset dir="${resourcedir}">
+				<exclude name=".svn"/>
+			</fileset>
+		</copy>
+	</target>
 	
 </project>	

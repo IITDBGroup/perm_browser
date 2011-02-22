@@ -42,7 +42,7 @@ public class QueryHandler {
 		StringBuffer sql;
 		Statement st;
 		ResultSet rs;
-		int start, stop;
+//		int start, stop;
 		
 		sql = new StringBuffer ();
 		query = "EXPLAIN SQLTEXT " + query;
@@ -53,10 +53,12 @@ public class QueryHandler {
 		while(rs.next())
 			sql.append(rs.getString(1) + "\n");
 		
-		start = sql.indexOf("Query:\n---------------");
-		stop = sql.indexOf("\n---------------", start + 22);
+		return sql.toString();
 		
-		return sql.subSequence(start + 23, stop).toString();
+//		start = sql.indexOf("Query:\n---------------");
+//		stop = sql.indexOf("\n---------------", start + 22);
+//		
+//		return sql.subSequence(start + 23, stop).toString();
 	}
 	
 	public String queryRemoveProv (String query) {
@@ -142,30 +144,30 @@ public class QueryHandler {
 	
 	public String getRewrittenQueryDotScript (String query) throws SQLException, ClassNotFoundException {
 		StringBuilder dot;
-		int openBrackets;
-		boolean inComment;
+//		int openBrackets;
+//		boolean inComment;
 		
 		query = "EXPLAIN GRAPH " + query;
 		
 		log.debug("get graph query:\n<" + query + ">");		
 		dot = getExplainString(query);
 		
-		inComment = false;
-		openBrackets = 0;
-		for(int i = dot.indexOf("digraph {") + 9; i < dot.length(); i++) {
-			if (inComment && dot.charAt(i) == '"')
-				inComment = false;
-			else if (dot.charAt(i) == '"')
-				inComment = true;
-			else if (dot.charAt(i) == '{')
-				openBrackets++;
-			else if (dot.charAt(i) == '}') {
-				openBrackets--;
-				
-				if (openBrackets == 0)
-					return dot.substring(0, i + 2);
-			}
-		}
+//		inComment = false;
+//		openBrackets = 0;
+//		for(int i = dot.indexOf("digraph {") + 9; i < dot.length(); i++) {
+//			if (inComment && dot.charAt(i) == '"')
+//				inComment = false;
+//			else if (dot.charAt(i) == '"')
+//				inComment = true;
+//			else if (dot.charAt(i) == '{')
+//				openBrackets++;
+//			else if (dot.charAt(i) == '}') {
+//				openBrackets--;
+//				
+//				if (openBrackets == 0)
+//					return dot.substring(0, i + 2);
+//			}
+//		}
 		
 		//TODO error;
 		return dot.toString();
