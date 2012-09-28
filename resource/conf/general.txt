@@ -8,4 +8,4 @@ ButtonOption.Unnest = prov_use_sublink_transfrom_top_level_any_to_join
 ButtonOption.Use_Left_Join = prov_use_sublink_optimization_left_join
 ButtonOption.Move_To_Target = prov_use_sublink_move_to_target
 ButtonOption.Cost_Based_Choice =  prov_use_optimizer
-DotCommand = /sw/bin/dot
+DotCommand = /usr/local/bin/dot

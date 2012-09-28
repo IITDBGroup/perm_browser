@@ -116,14 +116,22 @@
 		<condition property="os.mac1.6">
 			<and>
 				<os family="mac" />
-				<matches string="${os.version}" pattern="10.6.*" />
+				<or>
+					<matches string="${os.version}" pattern="10.6.*" />
+					<matches string="${os.version}" pattern="10.7.*" />
+				</or>
 				<contains string="${os.name}" substring="OS X" />
 			</and>
 		</condition>
 		<condition property="os.mac1.5">
 			<and>
 				<os family="mac" />
-				<not><matches string="${os.version}" pattern="10.6.*" /></not>
+				<not>
+					<or>
+						<matches string="${os.version}" pattern="10.6.*" />
+						<matches string="${os.version}" pattern="10.7.*" />
+					</or>
+				</not>
 				<contains string="${os.name}" substring="OS X" />
 			</and>
 		</condition>
