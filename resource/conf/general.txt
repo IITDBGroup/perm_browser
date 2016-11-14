@@ -1,11 +1,12 @@
 DB.User = postgres
 DB.Url = 127.0.0.1
-DB.DatabaseName = demo
+DB.DatabaseName = testdb
 Languages = english
 QueryHistoryFileName = history.log
 ButtonOption.Decorrelate = prov_use_unnest_ja
 ButtonOption.Unnest = prov_use_sublink_transfrom_top_level_any_to_join
 ButtonOption.Use_Left_Join = prov_use_sublink_optimization_left_join
 ButtonOption.Move_To_Target = prov_use_sublink_move_to_target
+ButtonOption.WL_Union_Sem = prov_use_wl_union_semantics
 ButtonOption.Cost_Based_Choice =  prov_use_optimizer
-DotCommand = /usr/local/bin/dot
+DotCommand = /sw/bin/dot

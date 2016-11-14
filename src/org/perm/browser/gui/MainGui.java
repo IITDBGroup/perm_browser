@@ -64,7 +64,7 @@ public class MainGui extends ShellAdapter {
 
 	static Logger log = Logger.getLogger(MainGui.class.getName());
 	
-	private static final int LOGO_HEIGHT = 80;	
+	private static final int LOGO_HEIGHT = 80;
 	
 	private Shell sShell = null;
 	private Composite mainComposite = null;
@@ -423,6 +423,7 @@ public class MainGui extends ShellAdapter {
 		createRadioButton("Unnest", rewriteOptionGroup);
 		createRadioButton("Use Left Join", rewriteOptionGroup);
 		createRadioButton("Move To Target", rewriteOptionGroup);
+		createRadioButton("WL Union Sem", rewriteOptionGroup);
 		createRadioButton("Cost Based Choice", rewriteOptionGroup);
 		
 		createStatsGroup ();
